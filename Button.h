@@ -5,23 +5,26 @@
 class Button
 {
 public:
-	Button(sf::Vector2f size , sf::Text text)
+	Button(sf::Vector2f size , std::string text)
 	{
 		ButtonSize = size;
 		ButtonShape.setSize(ButtonSize);
-		ButtonText = text;
+		Text = text;
+		setButtonText();
 	}
 	void setButtonSize(sf::Vector2f size);
 	void setButtonPosition(sf::Vector2f position);
 	void setButtonColor(sf::Color color);
 	bool buttonClickEvent(sf::Event& event);
 	sf::RectangleShape getButton();
+	sf::Text ButtonText;
+
 	
 private:
 	sf::Vector2f ButtonSize;
 	sf::Vector2f ButtonCoordonates;
 	sf::RectangleShape ButtonShape;
-	sf::Text ButtonText;
+	std::string Text;
 	void setButtonText();
 };
 

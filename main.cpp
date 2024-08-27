@@ -8,7 +8,8 @@ int main()
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
     
-    
+    Button button(sf::Vector2f(100.f, 100.f), "Click");
+    button.setButtonColor(sf::Color::Green);
     
     while (window.isOpen())
     {
@@ -20,6 +21,8 @@ int main()
         }
 
         window.clear(sf::Color::White);
+        window.draw(button.getButton());
+        window.draw(button.ButtonText);
         window.display();
     }
     return 0;

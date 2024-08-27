@@ -13,7 +13,16 @@ sf::RectangleShape Button::getButton() {
 	return ButtonShape;
 }
 void Button::setButtonText() {
-	
+	sf::Font font;
+	font.loadFromFile("Assets/Roboto-Medium.ttf");
+	ButtonText.setFont(font);
+	ButtonText.setCharacterSize(20);
+	ButtonText.setString(Text);
+	ButtonText.setFillColor(sf::Color::White);
+	sf::FloatRect textRect = ButtonText.getLocalBounds();
+	ButtonText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	sf::Vector2f rectangleCenter = ButtonShape.getPosition() + ButtonShape.getSize() / 2.0f;
+	ButtonShape.setPosition(rectangleCenter);
 }
 bool Button::buttonClickEvent(sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonPressed) {
