@@ -4,11 +4,10 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1264, 800), "SFML works!" , sf::Style::Titlebar | sf::Style::Close);
+    sf::RenderWindow window(sf::VideoMode(800, 920), "SFML works!" , sf::Style::Titlebar | sf::Style::Close);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
     
-    Button btn = Button(sf::Vector2f(100.f, 100.f));
     
     
     while (window.isOpen())
@@ -20,9 +19,7 @@ int main()
                 window.close();
         }
 
-        window.clear();
-        window.draw(shape);
-        window.draw();
+        window.clear(sf::Color::White);
         window.display();
     }
     return 0;
