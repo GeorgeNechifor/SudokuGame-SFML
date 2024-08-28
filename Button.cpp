@@ -1,5 +1,7 @@
 #include "Button.h"
 #include<iostream>
+
+
 void Button::setButtonSize(sf::Vector2f size) {
 	ButtonShape.setSize(size);
 }
@@ -13,16 +15,16 @@ sf::RectangleShape Button::getButton() {
 	return ButtonShape;
 }
 void Button::setButtonText() {
-	sf::Font font;
-	font.loadFromFile("Assets/Roboto-Medium.ttf");
-	ButtonText.setFont(font);
-	ButtonText.setCharacterSize(20);
 	ButtonText.setString(Text);
-	ButtonText.setFillColor(sf::Color::White);
-	sf::FloatRect textRect = ButtonText.getLocalBounds();
-	ButtonText.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-	sf::Vector2f rectangleCenter = ButtonShape.getPosition() + ButtonShape.getSize() / 2.0f;
-	ButtonShape.setPosition(rectangleCenter);
+	ButtonText.setFillColor(sf::Color::Black);
+	ButtonText.setPosition(sf::Vector2f(20.f, 300.f));
+	sf::Font font;
+	if (!font.loadFromFile("Assets/Roboto-Medium.ttf")) {
+		std::cout << "Error:not using font";
+	}
+	ButtonText.setFont(font);
+	ButtonText.setCharacterSize(25);
+	
 }
 bool Button::buttonClickEvent(sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonPressed) {
@@ -36,7 +38,6 @@ bool Button::buttonClickEvent(sf::Event& event) {
 					return true;
 				}
 			}
-			
 			return false;
 		}
 	}
