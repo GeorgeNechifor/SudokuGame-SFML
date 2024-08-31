@@ -1,6 +1,5 @@
 #include "Sudoku.h"
 
-
 void Sudoku::setSudokuSquare() {
 	SudokuTableSquare.setSize(sf::Vector2f(SquareSize, SquareSize));
 	SudokuTableSquare.setFillColor(sf::Color::Transparent);
@@ -21,7 +20,6 @@ void Sudoku::setTable(sf::RenderWindow& window) {
 		for (int j = 0; j < tableSize; ++j) {
 			SudokuTableSquare.setPosition(sf::Vector2f(i * 100, (j * 100) + 50));
 			window.draw(SudokuTableSquare);
-			
 		}
 	}
 }
@@ -33,7 +31,14 @@ void Sudoku::setLine(float x , float y ,sf::RenderWindow& window , float angle) 
 	line.setPosition(sf::Vector2f(x, y));
 	line.rotate(angle);
 	window.draw(line);
-	
 }
 
-
+void Sudoku::setSquareText() {
+	sf::Font font;
+	if (!font.loadFromFile("C:/SudokuGameC/SudokuGame/FontRoboto.ttf")) {
+		perror("Font not found");
+	}
+	squareText.setFont(font);
+	squareText.setCharacterSize(50);
+	squareText.setFillColor(sf::Color::Black);
+}

@@ -11,6 +11,5 @@ private:
 	const float windowHeight = 950.f;
 	const std::string Title = "Sudoku";
 	void handleEvents(sf::Event& event , sf::RenderWindow& window);
-		
 };
 
