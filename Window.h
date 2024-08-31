@@ -1,6 +1,7 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 #include"Sudoku.h"
+
 class Window : protected Sudoku
 {
 public:

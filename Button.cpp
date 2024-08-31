@@ -15,16 +15,16 @@ sf::RectangleShape Button::getButton() {
 	return ButtonShape;
 }
 void Button::setButtonText() {
-	ButtonText.setString(Text);
-	ButtonText.setFillColor(sf::Color::Black);
-	ButtonText.setPosition(sf::Vector2f(20.f, 300.f));
+	
 	sf::Font font;
 	if (!font.loadFromFile("Assets/Roboto-Medium.ttf")) {
 		std::cout << "Error:not using font";
 	}
 	ButtonText.setFont(font);
 	ButtonText.setCharacterSize(25);
-	
+	ButtonText.setString(Text);
+	ButtonText.setFillColor(sf::Color::Black);
+	ButtonText.setPosition(sf::Vector2f(20.f, 300.f));
 }
 bool Button::buttonClickEvent(sf::Event& event) {
 	if (event.type == sf::Event::MouseButtonPressed) {

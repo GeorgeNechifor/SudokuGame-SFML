@@ -6,6 +6,7 @@ class Sudoku
 public:
 	Sudoku() {
 		setSudokuSquare();
+		setButton();
 	}
 	sf::RectangleShape getSudokuSquare();
 protected:
@@ -15,8 +16,7 @@ private:
 	sf::RectangleShape SudokuTableSquare;
 	const float SquareSize = 100.f;
 	void setSudokuSquare();
-	void verticalLines(int i);
+	void setLine(float x , float y , sf::RenderWindow& window , float angle);
 	const int tableSize = 9;
-
 };
 

@@ -10,6 +10,7 @@ public:
 		ButtonSize = size;
 		ButtonShape.setSize(ButtonSize);
 		Text = text;
+		setButtonText();
 	}
 	void setButtonSize(sf::Vector2f size);
 	void setButtonPosition(sf::Vector2f position);
