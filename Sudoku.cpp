@@ -1,4 +1,6 @@
 #include "Sudoku.h"
+#include<iostream>
+
 
 void Sudoku::setSudokuSquare() {
 	SudokuTableSquare.setSize(sf::Vector2f(SquareSize, SquareSize));
@@ -18,8 +20,13 @@ void Sudoku::setTable(sf::RenderWindow& window) {
 			setLine(0, i * 100 + 50, window, 0);
 		}
 		for (int j = 0; j < tableSize; ++j) {
-			SudokuTableSquare.setPosition(sf::Vector2f(i * 100, (j * 100) + 50));
+			float x = i * 100;
+			float y = (j * 100) + 50;
+			SudokuTableSquare.setPosition(sf::Vector2f(x, y));
+			hoverEvent(window, sf::Vector2f(x, y), SudokuTableSquare);
+
 			window.draw(SudokuTableSquare);
+
 		}
 	}
 }
@@ -41,4 +48,19 @@ void Sudoku::setSquareText() {
 	squareText.setFont(font);
 	squareText.setCharacterSize(50);
 	squareText.setFillColor(sf::Color::Black);
+}
+
+void Sudoku::hoverEvent(sf::RenderWindow& window , sf::Vector2f pos , sf::RectangleShape& shape) {
+	sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+	float marginX = pos.x + 100;
+	float marginY = pos.y + 100;
+	if (mousePos.x > pos.x && mousePos.x < marginX) {
+		if (mousePos.y > pos.y && mousePos.y < marginY) {
+			shape.setFillColor(sf::Color::Green);
+		}
+		else {
+			shape.setFillColor(sf::Color::Transparent);
+
+		}
+	}
 }

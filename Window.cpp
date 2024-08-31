@@ -8,11 +8,16 @@ void Window::setWindow() {
 	if (!font.loadFromFile("C:/SudokuGameC/SudokuGame/FontRoboto.ttf")) {
 		perror("Font not found");
 	}
-	title.setFont(font);
+	title.setPosition(sf::Vector2f(380.f, 5.f));
 	title.setFillColor(sf::Color::Black);
 	title.setCharacterSize(40);
-	title.setPosition(sf::Vector2f(380.f, 5.f));
+	title.setFont(font);
 	title.setString("Sudoku");
+
+	number.setFont(font);
+	number.setFillColor(sf::Color::Black);
+	number.setCharacterSize(60);
+
 
 	window.setFramerateLimit(60);
 	while (window.isOpen()) {
@@ -21,9 +26,9 @@ void Window::setWindow() {
 		window.clear(sf::Color::White);
 		Sudoku::setTable(window);
 		window.draw(title);
+		setTextTable(window);
 		window.display();
 	}
-	
 }
 
 void Window::handleEvents(sf::Event& event , sf::RenderWindow& window) {
@@ -33,3 +38,21 @@ void Window::handleEvents(sf::Event& event , sf::RenderWindow& window) {
 		}
 	}
 }
+
+void Window::setTextStyle(sf::Text text, sf::Color color, sf::Font font, float size, std::string s) {
+	text.setFont(font);
+	text.setCharacterSize(size);
+	text.setFillColor(color);
+	text.setString(s);
+}
+
+void Window::setTextTable(sf::RenderWindow& window) {
+	for (int i = 0; i < 9; ++i) {
+		for (int j = 0; j < 9; ++j) {
+			number.setString(std::to_string(Sudoku::matrixTable[i][j]));
+			number.setPosition(sf::Vector2f(i*100 + 35 , j*100 + 62));
+			window.draw(number);
+		}
+	}
+}
+

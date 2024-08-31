@@ -13,8 +13,10 @@ public:
 protected:
 	void setTable(sf::RenderWindow& window);
 	void setTableText(sf::RenderWindow& window , float x , float y);
+	void hoverEvent(sf::RenderWindow& window , sf::Vector2f pos , sf::RectangleShape& shape);
+
 	int matrixTable[9][9] = {
-		{0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0},
+		{1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0},
 		{0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0},
 		{0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0}
 	};
