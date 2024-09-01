@@ -18,15 +18,14 @@ void Sudoku::setTable(sf::RenderWindow& window) {
 		if (i % 3 == 0 && i != 0) {
 			setLine(i * 100, 50, window, 90);
 			setLine(0, i * 100 + 50, window, 0);
-		}
+		} 
 		for (int j = 0; j < tableSize; ++j) {
 			float x = i * 100;
 			float y = (j * 100) + 50;
 			SudokuTableSquare.setPosition(sf::Vector2f(x, y));
-			hoverEvent(window, sf::Vector2f(x, y), SudokuTableSquare);
-
+			useClickEvent(SudokuTableSquare, sf::Vector2f(x, y), i, j);
+		
 			window.draw(SudokuTableSquare);
-
 		}
 	}
 }
@@ -60,7 +59,27 @@ void Sudoku::hoverEvent(sf::RenderWindow& window , sf::Vector2f pos , sf::Rectan
 		}
 		else {
 			shape.setFillColor(sf::Color::Transparent);
+		}
+	}
+}
 
+void Sudoku::useClickEvent(sf::RectangleShape& shape , sf::Vector2f pos , int i , int j) {
+	if (clicked) {
+		float marginX = pos.x + 100;
+		float marginY = pos.y + 100;
+		if (clickPos.x >= pos.x && clickPos.x <= marginX) {
+			if (clickPos.y >= pos.y && clickPos.y <= marginY) {
+				matrixPos = sf::Vector2i(i, j);
+			}
+		}
+	}
+}
+
+void Sudoku::keyboardEvent(sf::Event& event) {
+	if (event.type == sf::Event::TextEntered) {
+		if (event.text.unicode >= 49 && event.text.unicode <= 57) {
+			input = (event.text.unicode + 2) % 10;
+			Sudoku::matrixTable[Sudoku::matrixPos.y][Sudoku::matrixPos.x] = input;
 		}
 	}
 }
