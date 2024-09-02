@@ -1,15 +1,19 @@
 #pragma once
 #include<SFML/Graphics.hpp>
 #include<iostream>
+#include<cstdlib>
+
 class Sudoku
 {
 public:
 	Sudoku() {
 		setSudokuSquare();
 		setSquareText();
+		generateSample();
 	}
 	sf::RectangleShape getSudokuSquare();
 	bool clicked = false;
+	
 
 protected:
 	void setTable(sf::RenderWindow& window);
@@ -19,6 +23,7 @@ protected:
 	void keyboardEvent(sf::Event& event);
 	void changeColor(sf::RectangleShape& shape, int i, int j);
 	void clearMatrixColor();
+	void generateSample();
 	void clickEvent(sf::Event& event) {
 		if (event.type == sf::Event::MouseButtonPressed) {
 			if (event.mouseButton.button == sf::Mouse::Left) {
@@ -30,9 +35,13 @@ protected:
 		}
 		else clicked = false;
 	}
+	bool collumnVerification(int col);
+	bool rowVerification(int row);
+	bool nonetVerification(int row , int col);
+	bool valid = true;
 	int input = 0;
 	int matrixTable[9][9] = {
-		{1 , 2 , 3 , 0 , 0 , 0 , 0 , 0 , 0},
+		{0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0},
 		{0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0},
 		{0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0}
 	};

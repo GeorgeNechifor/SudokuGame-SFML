@@ -1,6 +1,6 @@
 #include "Sudoku.h"
 #include<iostream>
-
+#include<vector>
 
 void Sudoku::setSudokuSquare() {
 	SudokuTableSquare.setSize(sf::Vector2f(SquareSize, SquareSize));
@@ -24,7 +24,10 @@ void Sudoku::setTable(sf::RenderWindow& window) {
 			float y = (j * 100) + 50;
 			SudokuTableSquare.setPosition(sf::Vector2f(x, y));
 			changeColor(SudokuTableSquare, i, j);
-			useClickEvent(SudokuTableSquare, sf::Vector2f(x, y), i, j);
+			if (valid && matrixTable[j][i] == 0) {
+				useClickEvent(SudokuTableSquare, sf::Vector2f(x, y), i, j);
+			}
+			
 			window.draw(SudokuTableSquare);
 		}
 	}
@@ -83,6 +86,14 @@ void Sudoku::keyboardEvent(sf::Event& event) {
 		if (event.text.unicode >= 49 && event.text.unicode <= 57) {
 			input = (event.text.unicode + 2) % 10;
 			Sudoku::matrixTable[Sudoku::matrixPos.y][Sudoku::matrixPos.x] = input;
+			if (rowVerification(matrixPos.y) && collumnVerification(matrixPos.x)) {
+				color = sf::Color::Green;
+				valid = true;
+			}
+			else {
+				color = sf::Color::Red;
+				valid = false;
+			}
 		}
 	}
 }
@@ -103,4 +114,42 @@ void Sudoku::clearMatrixColor() {
 			else matrixColor[j][i] = 0;
 		}
 	}
+}
+
+bool Sudoku::rowVerification(int row) {
+	int ap[10];
+	for (int i = 1; i <= 9; ++i) {
+		ap[i] = 0;
+	}
+	for (int i = 0; i < 9; ++i) {
+		int val = matrixTable[row][i];
+		if (val > 0) {
+			ap[val]++;
+			if (ap[val] > 1) return false;
+		}
+	}
+	return true;
+}
+
+bool Sudoku::collumnVerification(int col) {
+	int ap[10];
+	for (int i = 1; i <= 9; ++i) {
+		ap[i] = 0;
+	}
+	for (int i = 0; i < 9; ++i) {
+		int val = matrixTable[i][col];
+		if (val > 0) {
+			ap[val]++;
+			if (ap[val] > 1) return false;
+		}
+	}
+	return true;
+}
+
+bool Sudoku::nonetVerification(int row , int col) {
+	return true;
+}
+
+void Sudoku::generateSample() {
+	
 }
