@@ -51,7 +51,13 @@ void Window::setTextStyle(sf::Text text, sf::Color color, sf::Font font, float s
 void Window::setTextTable(sf::RenderWindow& window) {
 	for (int i = 0; i < 9; ++i) {
 		for (int j = 0; j < 9; ++j) {
-			number.setString(std::to_string(Sudoku::matrixTable[j][i]));
+			int content = Sudoku::matrixTable[j][i];
+			if (content > 0) {
+				number.setString(std::to_string(content));
+			}
+			else {
+				number.setString("");
+			}
 			number.setPosition(sf::Vector2f(i*100 + 35 , j*100 + 62));
 			window.draw(number);
 		}
