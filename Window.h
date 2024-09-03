@@ -21,6 +21,5 @@ private:
 	void setTextTable(sf::RenderWindow& window);
 	void setGameMenu(sf::RenderWindow& window);
 	void enterEvent(sf::Event& event);
-	void enterTextAnimation();
 };
 

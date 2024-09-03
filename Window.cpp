@@ -49,7 +49,6 @@ void Window::setWindow() {
 			setGameMenu(window);
 		}
 	
-		
 		window.display();
 	}
 }
@@ -102,13 +101,3 @@ void Window::enterEvent(sf::Event& event) {
 	}
 }
 
-void Window::enterTextAnimation() {
-	sf::Vector2f TextPos = enterText.getPosition();
-	sf::Vector2f FinalPos(TextPos.x + 50, TextPos.y + 50);
-	float pos = TextPos.y;
-	if (TextPos.y < FinalPos.y) {
-		enterText.setPosition(TextPos.x, pos);
-		pos++;
-	}
-
-}

@@ -19,7 +19,8 @@ sf::RectangleShape Sudoku::getSudokuSquare() {
 	return SudokuTableSquare;
 }
 
-void Sudoku::setTable(sf::RenderWindow& window) {
+
+void Sudoku::setTable(sf::RenderWindow& window) { // draw table
 	for (int i = 0; i < tableSize; ++i) {
 		if (i % 3 == 0 && i != 0) {
 			setLine(i * 100, 50, window, 90);
@@ -58,6 +59,7 @@ void Sudoku::setSquareText() {
 	squareText.setFillColor(sf::Color::Black);
 }
 
+//check click x and y
 void Sudoku::useClickEvent(sf::RectangleShape& shape , sf::Vector2f pos , int i , int j) {
 	if (clicked) {
 		sf::Vector2i cpy = matrixPos;
@@ -73,6 +75,7 @@ void Sudoku::useClickEvent(sf::RectangleShape& shape , sf::Vector2f pos , int i 
 	}
 }
 
+//keyboard event for numbers from 1 to 9
 void Sudoku::keyboardEvent(sf::Event& event) {
 	if (event.type == sf::Event::TextEntered) {
 		if (event.text.unicode >= 49 && event.text.unicode <= 57) {
@@ -108,6 +111,7 @@ void Sudoku::clearMatrixColor() {
 	}
 }
 
+//generate sudoku sample
 void Sudoku::generateSample() {
 	for (int i = 0; i < tableSize; ++i) {
 		for (int j = 0; j < tableSize; ++j) {
@@ -131,7 +135,8 @@ int Sudoku::getRandomNumber(sf::Vector2i range) {
 	return dist6(rng);
 }
 
-bool Sudoku::isValidSudoku(int board[9][9]) {
+
+bool Sudoku::isValidSudoku(int board[9][9]) { //check if the sudoku is table is valid
 
 	// Check each row
 	for (int i = 0; i < 9; ++i) {
