@@ -18,7 +18,6 @@ public:
 
 protected:
 	void setTable(sf::RenderWindow& window);
-	void setTableText(sf::RenderWindow& window , float x , float y);
 	void useClickEvent(sf::RectangleShape& shape, sf::Vector2f pos , int i , int j);
 	void keyboardEvent(sf::Event& event);
 	void changeColor(sf::RectangleShape& shape, int i, int j);

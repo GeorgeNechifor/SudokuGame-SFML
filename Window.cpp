@@ -6,10 +6,10 @@ void Window::setWindow() {
 	sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), Title, sf::Style::Titlebar | sf::Style::Close);
 	sf::Text title;
 	sf::Font font;
-	if (!font.loadFromFile("C:/SudokuGameC/SudokuGame/FontRoboto.ttf")) {
+	if (!font.loadFromFile("C:/SudokuGameC/SudokuGame/FontHandjet.ttf")) {
 		perror("Font not found");
 	}
-	title.setPosition(sf::Vector2f(400.f, 5.f));
+	title.setPosition(sf::Vector2f(410.f, 5.f));
 	title.setFillColor(LIGHT_PURPLE);
 	title.setCharacterSize(30);
 	title.setFont(font);
@@ -17,7 +17,7 @@ void Window::setWindow() {
 
 	number.setFont(font);
 	number.setFillColor(LIGHT_PURPLE);
-	number.setCharacterSize(60);
+	number.setCharacterSize(70);
 
 	menu.setSize(sf::Vector2f(windowWidth , windowHeight));
 	menu.setFillColor(sf::Color(246, 241, 227));
@@ -25,9 +25,9 @@ void Window::setWindow() {
 
 	enterText.setFont(font);
 	enterText.setFillColor(LIGHT_PURPLE);
-	enterText.setCharacterSize(35);
+	enterText.setCharacterSize(25);
 	enterText.setString("press enter to start...");
-	enterText.setPosition(sf::Vector2f(300.f, 550.f));
+	enterText.setPosition(sf::Vector2f(380.f, 550.f));
 
 	if (!texture.loadFromFile("C:/SudokuGameC/SudokuGame/Sudoku.png")) {
 		perror("Image not found");
@@ -48,6 +48,7 @@ void Window::setWindow() {
 		else {
 			setGameMenu(window);
 		}
+	
 		
 		window.display();
 	}
@@ -81,7 +82,7 @@ void Window::setTextTable(sf::RenderWindow& window) {
 			else {
 				number.setString("");
 			}
-			number.setPosition(sf::Vector2f(i*100 + 35 , j*100 + 62));
+			number.setPosition(sf::Vector2f(i*100 + 35 , j*100 + 55));
 			window.draw(number);
 		}
 	}
@@ -99,4 +100,15 @@ void Window::enterEvent(sf::Event& event) {
 			menuActive = false;
 		}
 	}
+}
+
+void Window::enterTextAnimation() {
+	sf::Vector2f TextPos = enterText.getPosition();
+	sf::Vector2f FinalPos(TextPos.x + 50, TextPos.y + 50);
+	float pos = TextPos.y;
+	if (TextPos.y < FinalPos.y) {
+		enterText.setPosition(TextPos.x, pos);
+		pos++;
+	}
+
 }
