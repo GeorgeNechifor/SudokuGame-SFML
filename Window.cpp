@@ -1,4 +1,5 @@
 #include "Window.h"
+#define LIGHT_PURPLE sf::Color(87, 8, 120)
 
 void Window::setWindow() {
 	Sudoku sudoku;
@@ -8,25 +9,46 @@ void Window::setWindow() {
 	if (!font.loadFromFile("C:/SudokuGameC/SudokuGame/FontRoboto.ttf")) {
 		perror("Font not found");
 	}
-	title.setPosition(sf::Vector2f(380.f, 3.f));
-	title.setFillColor(sf::Color::Black);
-	title.setCharacterSize(40);
+	title.setPosition(sf::Vector2f(400.f, 5.f));
+	title.setFillColor(LIGHT_PURPLE);
+	title.setCharacterSize(30);
 	title.setFont(font);
 	title.setString("Sudoku");
 
 	number.setFont(font);
-	number.setFillColor(sf::Color::Black);
+	number.setFillColor(LIGHT_PURPLE);
 	number.setCharacterSize(60);
 
+	menu.setSize(sf::Vector2f(windowWidth , windowHeight));
+	menu.setFillColor(sf::Color(246, 241, 227));
+	menu.setPosition(sf::Vector2f(0.f, 0.f));
+
+	enterText.setFont(font);
+	enterText.setFillColor(LIGHT_PURPLE);
+	enterText.setCharacterSize(35);
+	enterText.setString("press enter to start...");
+	enterText.setPosition(sf::Vector2f(300.f, 550.f));
+
+	if (!texture.loadFromFile("C:/SudokuGameC/SudokuGame/Sudoku.png")) {
+		perror("Image not found");
+	}
+	logo.setTexture(texture);
+	logo.setPosition(sf::Vector2f(200.f, 150.f));
 
 	window.setFramerateLimit(60);
 	while (window.isOpen()) {
 		sf::Event event;
 		handleEvents(event, window);
-		window.clear(sf::Color::White);
-		Sudoku::setTable(window);
-		window.draw(title);
-		setTextTable(window);
+		window.clear(sf::Color(246, 241, 227));
+		if (!menuActive) {
+			Sudoku::setTable(window);
+			window.draw(title);
+			setTextTable(window);
+		}
+		else {
+			setGameMenu(window);
+		}
+		
 		window.display();
 	}
 }
@@ -38,6 +60,7 @@ void Window::handleEvents(sf::Event& event , sf::RenderWindow& window) {
 		}
 		Sudoku::clickEvent(event);
 		Sudoku::keyboardEvent(event);
+		enterEvent(event);
 	}
 }
 
@@ -64,3 +87,16 @@ void Window::setTextTable(sf::RenderWindow& window) {
 	}
 }
 
+void Window::setGameMenu(sf::RenderWindow& window) {
+	window.draw(menu);
+	window.draw(logo);
+	window.draw(enterText);
+}
+
+void Window::enterEvent(sf::Event& event) {
+	if (event.type == sf::Event::KeyPressed) {
+		if (event.key.scancode == sf::Keyboard::Scan::Enter) {
+			menuActive = false;
+		}
+	}
+}

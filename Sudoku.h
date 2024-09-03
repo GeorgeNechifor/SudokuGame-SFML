@@ -2,6 +2,7 @@
 #include<SFML/Graphics.hpp>
 #include<iostream>
 #include<cstdlib>
+#define GREEN sf::Color(10, 240, 94)
 
 class Sudoku
 {
@@ -18,12 +19,13 @@ public:
 protected:
 	void setTable(sf::RenderWindow& window);
 	void setTableText(sf::RenderWindow& window , float x , float y);
-	void hoverEvent(sf::RenderWindow& window , sf::Vector2f pos , sf::RectangleShape& shape);
 	void useClickEvent(sf::RectangleShape& shape, sf::Vector2f pos , int i , int j);
 	void keyboardEvent(sf::Event& event);
 	void changeColor(sf::RectangleShape& shape, int i, int j);
 	void clearMatrixColor();
 	void generateSample();
+	int getRandomNumber(sf::Vector2i range);
+	bool isValidSudoku(int board[9][9]);
 	void clickEvent(sf::Event& event) {
 		if (event.type == sf::Event::MouseButtonPressed) {
 			if (event.mouseButton.button == sf::Mouse::Left) {
@@ -35,9 +37,7 @@ protected:
 		}
 		else clicked = false;
 	}
-	bool collumnVerification(int col);
-	bool rowVerification(int row);
-	bool nonetVerification(int row , int col);
+	
 	bool valid = true;
 	int input = 0;
 	int matrixTable[9][9] = {
@@ -53,7 +53,7 @@ protected:
 	sf::Text squareText;
 	sf::Vector2f clickPos;
 	sf::Vector2i matrixPos;
-	sf::Color color = sf::Color::Green;
+	sf::Color color = GREEN;
 	
 private:
 	sf::RectangleShape SudokuTableSquare;
