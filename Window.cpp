@@ -29,6 +29,11 @@ void Window::setWindow() {
 	enterText.setString("press enter to start...");
 	enterText.setPosition(sf::Vector2f(380.f, 550.f));
 
+	chancesText.setFillColor(LIGHT_PURPLE);
+	chancesText.setFont(font);
+	chancesText.setCharacterSize(30);
+	chancesText.setPosition(sf::Vector2f(825.f, 2.f));
+
 	if (!texture.loadFromFile("C:/SudokuGameC/SudokuGame/Sudoku.png")) {
 		perror("Image not found");
 	}
@@ -43,6 +48,9 @@ void Window::setWindow() {
 		if (!menuActive) {
 			Sudoku::setTable(window);
 			window.draw(title);
+			window.draw(Sudoku::heartImage);
+			chancesText.setString(std::to_string(Sudoku::chances));
+			window.draw(chancesText);
 			setTextTable(window);
 		}
 		else {
@@ -100,4 +108,3 @@ void Window::enterEvent(sf::Event& event) {
 		}
 	}
 }
-

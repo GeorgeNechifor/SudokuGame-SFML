@@ -16,6 +16,7 @@ private:
 	sf::Texture texture;
 	sf::Sprite logo;
 	sf::Text enterText;
+	sf::Text chancesText;
 	void handleEvents(sf::Event& event , sf::RenderWindow& window);
 	void setTextStyle(sf::Text text, sf::Color color, sf::Font font, float size, std::string s);
 	void setTextTable(sf::RenderWindow& window);

@@ -19,7 +19,6 @@ sf::RectangleShape Sudoku::getSudokuSquare() {
 	return SudokuTableSquare;
 }
 
-
 void Sudoku::setTable(sf::RenderWindow& window) { // draw table
 	for (int i = 0; i < tableSize; ++i) {
 		if (i % 3 == 0 && i != 0) {
@@ -57,6 +56,7 @@ void Sudoku::setSquareText() {
 	squareText.setFont(font);
 	squareText.setCharacterSize(50);
 	squareText.setFillColor(sf::Color::Black);
+	
 }
 
 //check click x and y
@@ -88,6 +88,7 @@ void Sudoku::keyboardEvent(sf::Event& event) {
 			else {
 				color = RED;
 				valid = false;
+				gameOver();
 			}
 		}
 	}
@@ -175,4 +176,22 @@ bool Sudoku::isValidSudoku(int board[9][9]) { //check if the sudoku is table is 
 
 	// If all checks pass, the Sudoku is valid
 	return true;
+}
+
+void Sudoku::gameOver() {
+	chances--;
+	if (!chances) {
+		return;
+	}	
+}
+
+void Sudoku::setHeartImage() {
+	
+	if (!HeartSpriteTexture.loadFromFile("C:/SudokuGameC/SudokuGame/heart.png")) {
+		perror("Image not found");
+	}
+	heartImage.setTexture(HeartSpriteTexture);
+	heartImage.setPosition(sf::Vector2f(834.f, -10.f));
+	heartImage.setScale(0.2, 0.2);
+	
 }
