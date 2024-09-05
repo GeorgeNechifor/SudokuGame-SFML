@@ -84,6 +84,7 @@ void Sudoku::keyboardEvent(sf::Event& event) {
 				if (isValidSudoku(matrixTable)) {
 					color = GREEN;
 					valid = true;
+					win();
 				}
 				else {
 					color = RED;
@@ -135,7 +136,6 @@ int Sudoku::getRandomNumber(sf::Vector2i range) {
 	std::uniform_int_distribution<std::mt19937::result_type> dist6(range.x, range.y);
 	return dist6(rng);
 }
-
 
 bool Sudoku::isValidSudoku(int board[9][9]) { //check if the sudoku is table is valid
 
@@ -204,6 +204,27 @@ void Sudoku::clearMatrix() {
 		for (int j = 0; j < tableSize; ++j) {
 			matrixTable[j][i] = 0;
 			matrixColor[i][j] = 0;
+		}
+	}
+}
+
+bool Sudoku::checkMatrixComplete() {
+	for (int i = 0; i < tableSize; ++i) {
+		for (int j = 0; j < tableSize; ++j) {
+			if (matrixTable[j][i] == 0) return false;
+		}
+	}
+	return true;
+}
+
+void Sudoku::win() {
+	if (checkMatrixComplete() && chances > 0) {
+		color = GREEN;
+		valid = false;
+		for (int i = 0; i < tableSize; ++i) {
+			for (int j = 0; j < tableSize; ++j) {
+				matrixColor[j][i] = 1;
+			}
 		}
 	}
 }

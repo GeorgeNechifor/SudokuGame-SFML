@@ -30,6 +30,8 @@ protected:
 	int getRandomNumber(sf::Vector2i range);
 	bool isValidSudoku(int board[9][9]);
 	void gameOver();
+	void win();
+	bool checkMatrixComplete();
 	void clickEvent(sf::Event& event) {
 		if (event.type == sf::Event::MouseButtonPressed) {
 			if (event.mouseButton.button == sf::Mouse::Left) {
@@ -60,9 +62,7 @@ protected:
 	sf::Vector2i matrixPos = sf::Vector2i(-1 , -1);
 	sf::Color color = GREEN;
 	sf::Texture HeartSpriteTexture;
-	sf::Sprite heartImage;
-	sf::Clock clock;
-	
+	sf::Sprite heartImage;	
 private:
 	sf::RectangleShape SudokuTableSquare;
 	const float SquareSize = 100.f;
