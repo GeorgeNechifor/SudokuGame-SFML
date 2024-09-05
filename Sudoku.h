@@ -26,6 +26,7 @@ protected:
 	void changeColor(sf::RectangleShape& shape, int i, int j);
 	void clearMatrixColor();
 	void generateSample();
+	void clearMatrix();
 	int getRandomNumber(sf::Vector2i range);
 	bool isValidSudoku(int board[9][9]);
 	void gameOver();
@@ -56,10 +57,11 @@ protected:
 	};
 	sf::Text squareText;
 	sf::Vector2f clickPos;
-	sf::Vector2i matrixPos;
+	sf::Vector2i matrixPos = sf::Vector2i(-1 , -1);
 	sf::Color color = GREEN;
 	sf::Texture HeartSpriteTexture;
 	sf::Sprite heartImage;
+	sf::Clock clock;
 	
 private:
 	sf::RectangleShape SudokuTableSquare;

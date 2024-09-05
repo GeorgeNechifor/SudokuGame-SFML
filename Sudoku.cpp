@@ -3,6 +3,8 @@
 #include<vector>
 #include<random>
 #include<set>
+#include<SFML/System/Clock.hpp>
+
 #define LIGHT_PURPLE sf::Color(151, 2, 214)
 #define DARK_PURPLE sf::Color(87, 4, 122)
 #define GREEN sf::Color(10, 240, 94)
@@ -33,7 +35,6 @@ void Sudoku::setTable(sf::RenderWindow& window) { // draw table
 			if (valid && matrixTable[j][i] == 0) {
 				useClickEvent(SudokuTableSquare, sf::Vector2f(x, y), i, j);
 			}
-			
 			window.draw(SudokuTableSquare);
 		}
 	}
@@ -56,14 +57,12 @@ void Sudoku::setSquareText() {
 	squareText.setFont(font);
 	squareText.setCharacterSize(50);
 	squareText.setFillColor(sf::Color::Black);
-	
 }
 
 //check click x and y
 void Sudoku::useClickEvent(sf::RectangleShape& shape , sf::Vector2f pos , int i , int j) {
 	if (clicked) {
 		sf::Vector2i cpy = matrixPos;
-
 		float marginX = pos.x + 100;
 		float marginY = pos.y + 100;
 		if (clickPos.x >= pos.x && clickPos.x <= marginX) {
@@ -79,16 +78,18 @@ void Sudoku::useClickEvent(sf::RectangleShape& shape , sf::Vector2f pos , int i 
 void Sudoku::keyboardEvent(sf::Event& event) {
 	if (event.type == sf::Event::TextEntered) {
 		if (event.text.unicode >= 49 && event.text.unicode <= 57) {
-			input = (event.text.unicode + 2) % 10;
-			Sudoku::matrixTable[Sudoku::matrixPos.y][Sudoku::matrixPos.x] = input;
-			if(isValidSudoku(matrixTable)) {
-				color = GREEN;
-				valid = true;
-			}
-			else {
-				color = RED;
-				valid = false;
-				gameOver();
+			if (matrixPos.x != -1 && matrixPos.y != -1) {
+				input = (event.text.unicode + 2) % 10;
+				Sudoku::matrixTable[Sudoku::matrixPos.y][Sudoku::matrixPos.x] = input;
+				if (isValidSudoku(matrixTable)) {
+					color = GREEN;
+					valid = true;
+				}
+				else {
+					color = RED;
+					valid = false;
+					gameOver();
+				}
 			}
 		}
 	}
@@ -123,7 +124,6 @@ void Sudoku::generateSample() {
 				if (!isValidSudoku(matrixTable)) {
 					matrixTable[j][i] = 0;
 				}
-
 			}
 		}
 	}
@@ -181,8 +181,12 @@ bool Sudoku::isValidSudoku(int board[9][9]) { //check if the sudoku is table is 
 void Sudoku::gameOver() {
 	chances--;
 	if (!chances) {
-		return;
-	}	
+		clearMatrix();
+		generateSample();
+		chances = 5;
+		valid = true;
+		color = GREEN;
+	}
 }
 
 void Sudoku::setHeartImage() {
@@ -192,6 +196,16 @@ void Sudoku::setHeartImage() {
 	}
 	heartImage.setTexture(HeartSpriteTexture);
 	heartImage.setPosition(sf::Vector2f(834.f, -10.f));
-	heartImage.setScale(0.2, 0.2);
-	
+	heartImage.setScale(0.2, 0.2);	
 }
+
+void Sudoku::clearMatrix() {
+	for (int i = 0; i < tableSize; ++i) {
+		for (int j = 0; j < tableSize; ++j) {
+			matrixTable[j][i] = 0;
+			matrixColor[i][j] = 0;
+		}
+	}
+}
+
+
